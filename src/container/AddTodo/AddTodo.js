@@ -4,12 +4,16 @@ import { Formik } from "formik";
 import FormUpdate from "../../components/Form";
 import { useDispatch } from "react-redux";
 import { addTodo } from "../../redux/action";
+import { v4 as uuidv4 } from "uuid";
+import toast, { Toaster } from "react-hot-toast";
 
 const AddTodo = () => {
   const dispatch = useDispatch();
   const handleSubmit = useCallback(
-    (values, actions) => {
-      dispatch(addTodo(values));
+    (values, { resetForm }) => {
+      dispatch(addTodo({ ...values, id: uuidv4() }));
+      resetForm();
+      toast.success("Add Task Success");
     },
     [dispatch]
   );
@@ -37,6 +41,7 @@ const AddTodo = () => {
           </div>
         </div>
       </div>
+      <Toaster />
     </AddTodoWrapper>
   );
 };

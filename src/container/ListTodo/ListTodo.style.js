@@ -27,6 +27,9 @@ const ListTodoWrapper = styled.div`
   }
   .item-wrap {
     margin-bottom: 28px;
+    .checked {
+      text-decoration-line: line-through;
+    }
   }
   .item {
     border: 1px solid;

@@ -1,46 +1,58 @@
-import { combineReducers, createStore } from "redux";
-import persistStore from "redux-persist/es/persistStore";
-import { ADD_TODO } from "./type";
+import { ADD_TODO, CHANGE_STATUS_TODO, EDIT_TODO, REMOVE_TODO } from "./type";
 
 const initState = {
-  todos: [
-    // {
-    //   id: 0,
-    //   Title: "Learn React",
-    //   description: "abcbdbnadavsd",
-    //   dueDate: "2022-02-24",
-    //   piority: "low",
-    //   checked: true,
-    // },
-    // {
-    //   id: 1,
-    //   Title: "Learn React1",
-    //   description: "abcbdbnadavsd",
-    //   dueDate: "2022-02-24",
-    //   piority: "heigh",
-    //   checked: true,
-    // },
-    // {
-    //   id: 2,
-    //   Title: "Learn React2",
-    //   description: "abcbdbnadavsd",
-    //   dueDate: "2022-02-24",
-    //   piority: "low",
-    //   checked: false,
-    // },
-  ],
+  todos: [],
 };
 
 export default function rootReducer(state = initState, action) {
   switch (action.type) {
     case ADD_TODO: {
-      console.log(action?.result);
       return {
         ...state,
-        todos: [...state, action?.result],
+        todos: [...state.todos, action?.result],
       };
     }
-
+    case EDIT_TODO: {
+      return {
+        ...state,
+        todos: state.todos.map((todo) => {
+          if (todo.id === action?.result?.id) {
+            todo = {
+              ...todo,
+              title: action?.result?.title,
+              description: action?.result?.description,
+              piority: action?.result?.piority,
+              dueDate: action?.result?.dueDate,
+            };
+          }
+          return todo;
+        }),
+      };
+    }
+    case REMOVE_TODO: {
+      return {
+        ...state,
+        todos: state.todos.filter((todo) => todo.id !== action.result?.id),
+      };
+    }
+    case CHANGE_STATUS_TODO: {
+      return {
+        ...state,
+        todos: state.todos.map((todo) => {
+          if (todo.id === action?.result?.id) {
+            todo = {
+              ...todo,
+              title: action?.result?.title,
+              description: action?.result?.description,
+              piority: action?.result?.piority,
+              dueDate: action?.result?.dueDate,
+              checked: action?.result?.checked,
+            };
+          }
+          return todo;
+        }),
+      };
+    }
     default:
       return state;
   }

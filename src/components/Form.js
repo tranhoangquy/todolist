@@ -1,6 +1,7 @@
 import React from "react";
 import { Field, Form } from "formik";
 import "../container/ListTodo/ListTodo.style";
+import moment from "moment";
 
 const FormUpdate = ({ handleSubmit }) => {
   return (
@@ -27,7 +28,12 @@ const FormUpdate = ({ handleSubmit }) => {
         <div className="update-more">
           <div className="update-more-date">
             <div className="txt-label">Due Date</div>
-            <Field type="date" name="dueDate" className="due-date" />
+            <Field
+              type="date"
+              name="dueDate"
+              className="due-date"
+              min={moment().format("YYYY-MM-DD")}
+            />
           </div>
           <div className="update-more-piority">
             <div className="txt-label">Piority</div>

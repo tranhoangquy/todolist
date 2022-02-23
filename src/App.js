@@ -9,10 +9,10 @@ function App() {
     <>
       <div style={{ marginLeft: "20%", marginTop: "1%" }}>
         <button className="btn-function" onClick={() => setDisplay(!display)}>
-          {display ? "List ToDo" : "Add Task"}
+          {!display ? "List ToDo" : "Add Task"}
         </button>
       </div>
-      {display ? <AddTodo /> : <ListTodo />}
+      {display ? <ListTodo /> : <AddTodo />}
     </>
   );
 }

@@ -1,24 +1,19 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import "./App.css";
+import AddTodo from "./container/AddTodo/AddTodo";
+import ListTodo from "./container/ListTodo/ListTodo";
 
 function App() {
+  const [display, setDisplay] = useState(true);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <div style={{ marginLeft: "20%", marginTop: "1%" }}>
+        <button className="btn-function" onClick={() => setDisplay(!display)}>
+          {display ? "List ToDo" : "Add Task"}
+        </button>
+      </div>
+      {display ? <AddTodo /> : <ListTodo />}
+    </>
   );
 }
 

@@ -7,7 +7,7 @@ const ListTodoWrapper = styled.div`
   .container {
     margin: 38px auto 0px;
     padding-bottom: 30px;
-    width: 720px;
+    max-width: 720px;
   }
   .search {
     width: 718px;
@@ -112,6 +112,8 @@ const ListTodoWrapper = styled.div`
     }
   }
   .bulk-action {
+    position: sticky;
+    bottom: 0;
     border: 1px solid;
     padding: 26px;
     display: flex;

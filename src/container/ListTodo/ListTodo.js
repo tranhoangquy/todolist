@@ -3,7 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { Formik } from "formik";
 import ListTodoWrapper from "./ListTodo.style";
 import FormUpdate from "../../components/Form";
-import { changeStatusTodo, editTodo, removeTodo } from "../../redux/action";
+import {
+  changeStatusTodo,
+  editTodo,
+  removeAllTodo,
+  removeTodo,
+} from "../../redux/action";
 import toast, { Toaster } from "react-hot-toast";
 
 const ListTodo = () => {
@@ -12,8 +17,6 @@ const ListTodo = () => {
   } = useSelector((state) => state);
   const [update, setUpdate] = useState(null);
   const [arrFilter, setArrFilter] = useState(null);
-
-  console.log(todos.filter((todo) => todo.checked === true));
 
   const dispatch = useDispatch();
   const UpdateItem = (item) => {
@@ -49,6 +52,11 @@ const ListTodo = () => {
     },
     [todos]
   );
+
+  const RemoveAll = useCallback(() => {
+    const arrRemove = todos.filter((todo) => todo.checked === true);
+    dispatch(removeAllTodo(arrRemove));
+  }, [dispatch, todos]);
 
   useEffect(() => {
     setArrFilter(todos);
@@ -122,7 +130,9 @@ const ListTodo = () => {
                 <div className="bulk-action-title">Bulk Action</div>
                 <div>
                   <button className="btn-done">Done</button>
-                  <button className="btn-rmv">Remove</button>
+                  <button className="btn-rmv" onClick={RemoveAll}>
+                    Remove
+                  </button>
                 </div>
               </div>
             </>

@@ -1,4 +1,10 @@
-import { ADD_TODO, CHANGE_STATUS_TODO, EDIT_TODO, REMOVE_TODO } from "./type";
+import {
+  ADD_TODO,
+  CHANGE_STATUS_TODO,
+  EDIT_TODO,
+  REMOVE_ALL,
+  REMOVE_TODO,
+} from "./type";
 
 const initState = {
   todos: [],
@@ -51,6 +57,14 @@ export default function rootReducer(state = initState, action) {
           }
           return todo;
         }),
+      };
+    }
+    case REMOVE_ALL: {
+      const arrAction = action?.result;
+      const newArr = state?.todos?.concat(arrAction);
+      return {
+        ...state,
+        todos: [...newArr?.filter((arr) => arr.checked !== true)],
       };
     }
     default:
